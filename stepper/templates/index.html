@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf8">
+	<title>STEPPER Api</title>
+	<style>
+		a{
+			text-decoration: none;
+
+		}
+.btn{
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  background-color: white; 
+  color: black; 
+  border: 2px solid #008CBA;
+}
+.btn1{
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+	</style>
+</head>
+<body>
+  <h1>EMW Stepper </h1>
+  <div class="main">
+  <div class="inp">
+  <div class="btn1">
+    Steps: <input class="" id ="steps" type="input" value="1000">
+  <div><br/>
+  <div class="btn1">
+	<div class="btn1">
+		<input class="btn" id="id1start" type="submit" value="Start" onclick="submit('start')">
+		
+	</div>
+  <div class="btn1">
+    <input class="btn" id="id1ror" type="submit" value="Rotate Right" onclick="submit('ror')">
+    
+  </div>
+		<div class="btn1">
+		<input class="btn" id="id1rol" type="submit" value="Rotate Left" onclick="submit('rol')">
+	</div>
+  <div class="btn1">
+    <input class="btn" id="id1stop" type="submit" value="Stop" onclick="submit('stop')">
+    </div>
+    
+	<script type="text/javascript">
+
+    function submit(id) {
+      vals = Number(document.getElementById('steps').value)
+      console.log(vals)
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                console.log(xhr.response);
+                if(id == "stop"){
+                	var y = document.getElementsByClassName("btn");
+					var i;
+					for (i = 0; i < y.length; i++) {
+ 				 	y[i].style.backgroundColor = "white";
+						}
+                	document.getElementById("id1"+id).style.background='rgb(247, 0, 0) none repeat scroll 0% 0%';	
+                	}
+                else{
+					var y = document.getElementsByClassName("btn");
+					var i;
+					for (i = 0; i < y.length; i++) {
+ 					y[i].style.backgroundColor = "white";
+					}
+				document.getElementById("id1"+id).style.background='rgb(100, 255, 57) none repeat scroll 0% 0%';
+            }
+        }
+        }
+        xhr.open('get', '/'+id,'?stp='+vals,true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        xhr.send();
+    }
+
+	</script>
+	</body>
+	</html>
